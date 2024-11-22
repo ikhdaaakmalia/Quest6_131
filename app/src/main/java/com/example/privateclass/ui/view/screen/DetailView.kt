@@ -26,5 +26,27 @@ fun DatailView(
     onBackButtonClicked: () -> Unit,
     onResetButtonClicked: () -> Unit
 ) {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Text("Detail Mahasiswa",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .fillMaxWidth(),
+            textAlign = TextAlign.Center)
+        Row (modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween)
+        {
+            DetailRow(label = "NIM", value = mahasiswa.nim,
+                modifier = Modifier.weight(1f))                         // Memberikan proporsi ke kolom pertama
+            DetailRow(label = "", value = mahasiswa.email,
+                modifier = Modifier.weight(1f),
+                textAlign = TextAlign.End )                             //agar emailnya berada di kanan
+        }
+            DetailRow(label = "Nama", value = mahasiswa.nama)
+        Spacer(modifier = Modifier.padding(8.dp))
 
-}
