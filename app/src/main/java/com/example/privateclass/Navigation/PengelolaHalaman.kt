@@ -22,3 +22,56 @@ enum class Halaman {
     Matakuliah,
     Tampil
 }
+
+@Composable
+fun MahasiswaApp(
+    modifier: Modifier = Modifier,
+    mahasiswaViewModel: MahasiswaViewModel = viewModel(),
+    krsViewModel: RencanaStudyViewModel = viewModel(),
+    navController: NavHostController = rememberNavController()
+) {
+    val mahasiswaUiState = mahasiswaViewModel.statusUI.collectAsState().value
+    val rencanaStudiUiState = krsViewModel.krsStateUi.collectAsState().value
+
+    NavHost(
+        navController = navController,
+        startDestination = Halaman.Splash.name,
+        modifier = modifier.padding()
+    ) {
+        composable(route = Halaman.Splash.name) {
+            SplashView(onMulaiButton = {
+                navController.navigate(Halaman.Mahasiswa.name)
+            })
+        }
+        composable(route = Halaman.Mahasiswa.name) {
+            MahasiswaFormView(
+                onSubmitButtonClicked = {
+                    mahasiswaViewModel.saveDataMahasiswa(it)
+                    navController.navigate(Halaman.Matakuliah.name)
+                },
+                onBackButtonClicked = { navController.popBackStack() }
+            )
+        }
+        composable(route = Halaman.Matakuliah.name) {
+            RencanaStudyView(
+                mahasiswa = mahasiswaUiState,
+                onSubmitButtonClicked = { krs -> krsViewModel.saveDataKRS(krs)
+                    navController.navigate(Halaman.Tampil.name)
+                },
+                onBackButtonClicked = { navController.popBackStack() }
+            )
+        }
+        composable(route = Halaman.Tampil.name) {
+            DatailView(
+                mahasiswa = mahasiswaUiState,
+                rencanaStudi = rencanaStudiUiState,
+                onBackButtonClicked = { navController.popBackStack() },
+                onResetButtonClicked = {
+                    navController.navigate(Halaman.Splash.name) {
+                        popUpTo(Halaman.Splash.name) { inclusive = true }
+                    }
+                }
+            )
+        }
+    }
+}
