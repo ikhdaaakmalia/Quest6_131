@@ -107,7 +107,53 @@ fun RencanaStudyView(
                     )
                 )
                 .fillMaxSize()
-        )
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                Text(text = "Pilih Mata Kuliah Peminatan",
+                    fontWeight = FontWeight.Bold)
+                Text(
+                    text = "Silahkan Pilih Mata Kuliah Yang Anda Inginkan",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Light
+                )
+                Spacer(modifier = Modifier.padding(8.dp))
+                DynamicSelectTextField(
+                    selectedValue = choseDropdown,
+                    options = MataKuliah.options,
+                    label = "Mata Kuliah",
+                    onValueChangedEvent = { choseDropdown = it
+                    }
+                )
+                Spacer(modifier = Modifier.padding(8.dp))
+                HorizontalDivider()
+                Spacer(modifier = Modifier.padding(8.dp))
+                Text(text = "Pilih Kelas Belajar", fontWeight = FontWeight.Bold)
+                Text(
+                    text = "Silahkan Pilih Kelas Dari Mata Kuliah Yang Anda Inginkan",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Light
+                )
+                Spacer(modifier = Modifier.padding(8.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    RuangKelas.kelas.forEach { data ->
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(
+                                selected = pilihanKelas == data,
+                                onClick = { pilihanKelas = data }
+                            )
+                            Text(data)
+                        }
+                    }
+                }
 
+            }
+        }
     }
 }
