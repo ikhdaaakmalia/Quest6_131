@@ -74,3 +74,21 @@ fun DatailView(
     }
 }
 
+@Composable
+fun DetailRow(label: String,
+              value: String,
+              modifier: Modifier = Modifier,
+              textAlign: TextAlign = TextAlign.Start) {
+    Column(modifier = Modifier.padding(bottom = 8.dp)) {
+        Text(
+            text = label,
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp
+        )
+        Text(
+            text = value,
+            fontSize = 14.sp,
+            textAlign = textAlign
+        )
+    }
+}
