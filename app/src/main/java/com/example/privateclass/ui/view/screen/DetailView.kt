@@ -50,3 +50,27 @@ fun DatailView(
             DetailRow(label = "Nama", value = mahasiswa.nama)
         Spacer(modifier = Modifier.padding(8.dp))
 
+        Text("Rencana Studi",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .fillMaxWidth(),
+            textAlign = TextAlign.Center)
+        DetailRow(label = "Mata Kuliah", value = rencanaStudi.MataKuliah)
+        DetailRow(label = "Kelas", value = rencanaStudi.Kelas)
+        Spacer(modifier = Modifier.padding(8.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Button(onClick = onBackButtonClicked) {
+                Text("Kembali")
+            }
+            Button(onClick = onResetButtonClicked) {
+                Text("Reset")
+            }
+        }
+    }
+}
+
